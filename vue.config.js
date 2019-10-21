@@ -4,8 +4,8 @@ const url = require('url')
 const ENV = process.env.ENV || 'development'
 const isProduction = ENV === 'production'
 const isDev = ENV === 'development'
-const envDir = path.join(process.cwd(), `./config/${ENV}.js`)
-const envVars = require(envDir)
+const envDir = path.join(process.cwd(), `./config.js`)
+const envVars = require(envDir)[ENV]
 const DefinePlugin = require('webpack').DefinePlugin
 const formatEnv = function (obj) {
   const _temp = {}
@@ -37,7 +37,7 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    port: `777${envVars.APP_ID}`,
+    port: envVars.PORT,
     before: function (app, server) {
       app.all('*', (req, res, next) => {
         res.set('Access-Control-Allow-Origin', '*')

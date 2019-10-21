@@ -9,8 +9,8 @@
         <o-popover-option
           v-for="i in appList"
           :key="i.id"
-          :value="i.manifest.env.ALIAS"
-        >{{ i.name }}</o-popover-option>
+          :value="i.ALIAS"
+        >{{ i.ALIAS }}</o-popover-option>
       </o-popover-select>
     </Header>
     <Container v-if="vm" :vm="vm"></Container>
@@ -36,7 +36,6 @@ export default {
   },
   async created () {
     await this.$store.dispatch('getAppList')
-    await this.$store.dispatch('getManifest')
     await this.$watch('currentAppAlias', {
       immediate: true,
       handler (val) {
@@ -49,7 +48,7 @@ export default {
   computed: {
     ...mapGetters(['getAppData', 'appList']),
     currentAppAlias () {
-      return this.$route.params.appAlias
+      return this.$route.params.appAlias || ''
     },
     currentApp () {
       return this.getAppData(this.currentAppAlias)
@@ -59,10 +58,10 @@ export default {
     async loadResource () {
       this.pending = true
       await Promise.all([
-        loadScripts(this.currentApp.manifest.scripts),
-        loadStyles(this.currentApp.manifest.styles)
+        loadScripts(this.currentApp.scripts || []),
+        loadStyles(this.currentApp.styles || [])
       ])
-      const vm = await window.SUB_SYS_FACTORY_MAP[this.currentApp.id]()
+      const vm = await window.SUB_SYS_FACTORY_MAP[this.currentApp.ID]()
       if (this.vm) {
         this.vm.$el.remove()
         this.vm.$destroy()

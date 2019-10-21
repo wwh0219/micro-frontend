@@ -19,6 +19,6 @@ const factory = () => {
   return vm
 }
 registerSubSystem(factory, {
-  appid: process.env.APP_ID,
+  appid: process.env.ID,
   store
 })

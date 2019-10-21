@@ -20,3 +20,5 @@ window.ROOT_VM = vm
 store.commit('common/SET_USER', {
   id: 321
 })
+
+console.log(process.env)

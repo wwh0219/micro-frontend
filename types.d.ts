@@ -16,7 +16,7 @@ declare global {
 		export type EnvVars = {
 			NODE_ENV: NODE_ENV
 			BASE_URL: string
-			APP_ID: number
+			ID: number
 			IS_ROOT: boolean
 			ROUTER_BASE: string
 			BASE_API: string
