@@ -1,7 +1,7 @@
 <template>
   <div class="sub">
-     <Header v-if="!isInternal"></Header>
-				SUB1
+    <Header v-if="!isInternal"></Header>
+    SUB1
   </div>
 </template>
 <script>
