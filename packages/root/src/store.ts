@@ -6,18 +6,18 @@ import Url from 'url-parse'
 
 Vue.use(Vuex)
 type App = {
-	name: string
-	url: string
-	id: number
-	manifest: AppManifest
+  name: string
+  url: string
+  id: number
+  manifest: AppManifest
 }
 type AppManifest = {
-	scripts: string[]
-	styles: string[]
-	env: NodeJS.EnvVars
+  scripts: string[]
+  styles: string[]
+  env: NodeJS.EnvVars
 }
 type State = {
-	appList: App[]
+  appList: App[]
 }
 const _module: Module<State, any> = {
   state: {

@@ -7,11 +7,11 @@
 <script>
 import Header from 'common/components/app-header'
 export default {
-  data(){
-				return {
-      isInternal:window.IS_INTERNAL
-				}
-		},
+  data () {
+    return {
+      isInternal: window.IS_INTERNAL
+    }
+  },
   components: {
     Header
   }

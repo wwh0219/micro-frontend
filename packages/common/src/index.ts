@@ -3,10 +3,10 @@ import { Store } from 'vuex'
 import { commonModule } from './store'
 
 export type Factory = () => Vue | Promise<Vue>
-export type RegisterOptions={
-  el?:Element|string
-  appid:number
-	store:Store<any>
+export type RegisterOptions = {
+  el?: Element | string
+  appid: number
+  store: Store<any>
 }
 const defaultOptions: Partial<RegisterOptions> = {
   el: '#app'

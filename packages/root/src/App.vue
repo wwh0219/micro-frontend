@@ -1,22 +1,20 @@
 <template>
-	<div id="app" v-loading="pending">
-		<Header>
-			<o-popover-select
-				slot="right"
-				:value="currentAppAlias"
-				@input="$router.push({ name: 'root', params: { appAlias: $event } })"
-			>
-				<o-popover-option
-					v-for="i in appList"
-					:key="i.id"
-					:value="i.manifest.env.ALIAS"
-				>
-					{{ i.name }}
-				</o-popover-option>
-			</o-popover-select>
-		</Header>
-		<Container v-if="vm" :vm="vm"></Container>
-	</div>
+  <div id="app" v-loading="pending">
+    <Header>
+      <o-popover-select
+        slot="right"
+        :value="currentAppAlias"
+        @input="$router.push({ name: 'root', params: { appAlias: $event } })"
+      >
+        <o-popover-option
+          v-for="i in appList"
+          :key="i.id"
+          :value="i.manifest.env.ALIAS"
+        >{{ i.name }}</o-popover-option>
+      </o-popover-select>
+    </Header>
+    <Container v-if="vm" :vm="vm"></Container>
+  </div>
 </template>
 <script>
 import Header from 'common/components/app-header'
