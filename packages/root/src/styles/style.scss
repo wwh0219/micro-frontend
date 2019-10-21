@@ -1,0 +1,9 @@
+@import "~common/styles/index";
+#app{
+  @include flex-col;
+  .app-container{
+    flex: 1;
+    overflow: auto;
+    @include scroll-bar-slim();
+  }
+}

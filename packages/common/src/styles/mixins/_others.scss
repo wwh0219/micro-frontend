@@ -1,0 +1,17 @@
+@mixin ellipsis($line:1){
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+  -webkit-line-clamp: $line;
+}
+@mixin abs-center(){
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+@mixin abs-middle(){
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}

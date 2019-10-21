@@ -1,0 +1,37 @@
+{
+  "name": "common",
+  "version": "0.1.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint  \"src/**/*.+(js|ts|vue)\" --color --fix --config=../../.eslintrc.js"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.4.0",
+    "axios": "^0.19.0",
+    "core-js": "^2.6.5",
+    "cross-env": "^6.0.3",
+    "normalize.css": "^8.0.1",
+    "onev-ui": "^1.21.10",
+    "url-parse": "^1.4.7",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.3",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@types/url-parse": "^1.4.3",
+    "@vue/cli-plugin-babel": "^3.12.0",
+    "@vue/cli-plugin-eslint": "^3.12.0",
+    "@vue/cli-plugin-typescript": "^3.12.0",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "@vue/eslint-config-typescript": "^4.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^6.5.1",
+    "eslint-plugin-vue": "^5.0.0",
+    "node-sass": "^4.12.0",
+    "sass": "^1.19.0",
+    "sass-loader": "7.0.1",
+    "typescript": "^3.4.3",
+    "vue-template-compiler": "^2.6.10"
+  }
+}

@@ -1,0 +1,136 @@
+@each $key,
+$value in $space {
+  .mx-#{$key} {
+    margin-left: $value;
+    margin-right: $value;
+  }
+
+  .ml-#{$key} {
+    margin-left: $value;
+  }
+
+  .mr-#{$key} {
+    margin-right: $value;
+  }
+
+  .my-#{$key} {
+    margin-bottom: $value;
+    margin-top: $value;
+  }
+
+  .mt-#{$key} {
+    margin-top: $value;
+  }
+
+  .mb-#{$key} {
+    margin-bottom: $value;
+  }
+
+  .px-#{$key} {
+    padding-left: $value;
+    padding-right: $value;
+  }
+
+  .pl-#{$key} {
+    padding-left: $value;
+  }
+
+  .pr-#{$key} {
+    padding-right: $value;
+  }
+
+  .py-#{$key} {
+    padding-bottom: $value;
+    padding-top: $value;
+  }
+
+  .pt-#{$key} {
+    padding-top: $value;
+  }
+
+  .pb-#{$key} {
+    padding-bottom: $value;
+  }
+}
+
+
+@each $key,
+$value in $space {
+  .fs-#{$key} {
+    font-size: $value;
+  }
+}
+
+
+@each $key,
+$value in $fw {
+  .fw-#{$key} {
+    font-weight: $value;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.ellipsis {
+  @include ellipsis
+}
+
+//
+.full-height {
+  height: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+//flex
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-between {
+  @include flex-between
+}
+
+.flex-middle {
+  @include flex-middle
+}
+
+.flex-around {
+  @include flex-around
+}
+
+.flex-start {
+  @include flex-start
+}
+
+.flex-end {
+  @include flex-end
+}
+
+.flex-center {
+  @include flex-center
+}
+
+.flex-col {
+  @include flex-col
+}
+
+.flex-top {
+  @include flex-top
+}
+
+.c-gray {
+  color: $--color-gray;
+}

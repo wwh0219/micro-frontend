@@ -1,0 +1,17 @@
+.app-header {
+  background-color: $--color-primary;
+  height: $--header-height;
+  @include flex-between;
+  @include flex-middle;
+  padding: 5px 15px;
+  color: #fff;
+
+  &__icon {
+    width: 30px;
+  }
+
+  .el-dropdown-link,
+  .o-popover-select__main {
+    color: #fff;
+  }
+}
