@@ -5,9 +5,9 @@ import store from './store'
 import './styles/style.scss'
 import 'common/styles/lib.scss'
 import { registerStoreModule } from 'common/index'
-import OnevUi from 'onev-ui'
+import ElementUi from 'element-ui'
 Vue.config.productionTip = false
-Vue.use(OnevUi)
+Vue.use(ElementUi)
 registerStoreModule(store)
 const vm = new Vue({
   router,

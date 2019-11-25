@@ -1,17 +1,18 @@
 <template>
   <div id="app" v-loading="pending">
     <Header>
-      <o-popover-select
+      <el-dropdown
+        size="mini"
         slot="right"
         :value="currentAppAlias"
-        @input="$router.push({ name: 'root', params: { appAlias: $event } })"
-      >
-        <o-popover-option
-          v-for="i in appList"
-          :key="i.id"
-          :value="i.ALIAS"
-        >{{ i.ALIAS }}</o-popover-option>
-      </o-popover-select>
+        @command="$router.push({ name: 'root', params: { appAlias: $event } })">
+        <div style="color:#fff;margin-right:10px">
+          {{currentAppAlias || '请选择'}}
+        </div>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item v-for="i in appList" :key="i.id" :command="i.ALIAS">{{ i.ALIAS }}</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </Header>
     <Container v-if="vm" :vm="vm"></Container>
   </div>
