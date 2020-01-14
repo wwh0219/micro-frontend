@@ -1,0 +1,9 @@
+//引入项目注入
+@import "~element-ui/packages/theme-chalk/src/common/var.scss";
+@import "./vars";
+@import "./mixins/flex";
+@import "./mixins/others";
+@import "./mixins/screen";
+@import "./mixins/scrollbar";
+@import "./mixins/scroller";
+@import "./mixins/actives";

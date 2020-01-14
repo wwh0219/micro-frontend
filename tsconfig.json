@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "esnext",
     "module": "esnext",
     "strict": true,
@@ -27,7 +28,12 @@
         "transform": "typescript-transform-paths",
         "afterDeclarations":true
       }
-    ]
+    ],
+    "paths": {
+      "common":[
+        "./packages/common"
+      ]
+    }
   },
   "exclude": [
     "**/node_modules"

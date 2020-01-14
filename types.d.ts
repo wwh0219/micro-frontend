@@ -6,7 +6,7 @@ declare global {
 		ROOT_VM?: Vue
 		IS_INTERNAL?: boolean
 		SUB_SYS_FACTORY_MAP: {
-			[key: string]: Factory
+			[key: string]: ()=>Vue
 		}
 	}
 
@@ -22,7 +22,7 @@ declare global {
 			BASE_API: string
 			IS_DEV: boolean
 			IS_PRODUCTION: boolean
-			ALIAS:string
+			ALIAS: string
 		}
 		export interface Process {
 			env: EnvVars

@@ -7,6 +7,7 @@
 <script>
 import Header from 'common/components/app-header'
 export default {
+  name: 'app',
   data () {
     return {
       isInternal: window.IS_INTERNAL

@@ -1,0 +1,40 @@
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+$--color-danger: #ff3c3c;
+$--color-warning: #fb8f0e;
+$--color-success: #0fae09;
+$--color-info: #2ab5ff;
+$--color-positive: #896c51;
+$--color-negtive: #2ab5ff;
+
+$--color-aoi: #2ab5ff;
+$--color-royal: #{$--color-primary};
+$--color-content: #4a1f0f;
+$--color-dayima: #c11700;
+$--color-gray: #7f7f7f;
+$--color-ashy: #a1a4ab;
+$--color-slate: #dcdfe6;
+$--color-tiny: #e5e5e5;
+$--color-gold: #896c51;
+
+$--color-skin: #d2c09e;
+$--color-shit: #ab9c5e;
+$--color-handler: #896c51;
+
+$border-gray:#c4c4c4;
+$bg-gray: #f0f2f5;
+//字体
+$fs: (xs:12px,
+  sm:14px,
+  md:16px,
+  lg:18px,
+  xl:20px);
+$fw: (400:400,
+  600:600,
+  bold:bold);
+$space: (xs:5px,
+  sm:10px,
+  md:15px,
+  lg:20px,
+  xl:25px);
+
+  $--header-height:40px

@@ -2,8 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
-
-export default new Vuex.Store({
+const createStore = () => new Vuex.Store({
   state: {
 
   },
@@ -14,3 +13,4 @@ export default new Vuex.Store({
 
   }
 })
+export default createStore
