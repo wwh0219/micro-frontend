@@ -1,11 +1,13 @@
 <template>
   <div class="sub">
     <Header v-if="!isInternal"></Header>
-    SUB1
+    {{user}}
   </div>
 </template>
 <script>
-import Header from 'common/components/app-header'
+import Header from 'shared/components/app-header'
+import { createNamespacedHelpers } from 'vuex'
+const { mapGetters, mapMutations } = createNamespacedHelpers('shared')
 export default {
   name: 'app',
   data () {
@@ -15,6 +17,15 @@ export default {
   },
   components: {
     Header
+  },
+  computed: {
+    ...mapGetters(['user'])
+  },
+  methods: {
+    ...mapMutations(['SET_DATA'])
+  },
+  mounted () {
+    this.SET_DATA(['a', 'b', 'c'])
   }
 }
 </script>

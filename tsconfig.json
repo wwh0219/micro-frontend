@@ -30,8 +30,8 @@
       }
     ],
     "paths": {
-      "common":[
-        "./packages/common"
+      "shared":[
+        "./packages/shared"
       ]
     }
   },

@@ -1,4 +1,5 @@
+const config = require('./config')
 const express = require('express')
 const app = express()
-app.use('/vendor', express.static('./packages/common/public/libs/dll/development'))
-app.listen(12306)
+app.use('/vendor', express.static('./packages/shared/public/libs/dll/development'))
+app.listen(config.development.dllPort)

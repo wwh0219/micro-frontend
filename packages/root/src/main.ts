@@ -3,8 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './styles/style.scss'
-import 'common/styles/lib.scss'
-import { registerStoreModule } from 'common/index'
+import 'shared/styles/lib.scss'
+import { registerStoreModule } from 'shared/index'
 import ElementUi from 'element-ui'
 Vue.config.productionTip = false
 Vue.use(ElementUi)
@@ -17,8 +17,6 @@ const vm = new Vue({
 window.ROOT_VM = vm
 
 // fixme 调试代码
-store.commit('common/SET_USER', {
+store.commit('shared/SET_USER', {
   id: 321
 })
-
-console.log(process.env)

@@ -6,8 +6,8 @@
       "@/*": [
         "src/*"
       ],
-      "common/*": [
-        "../common/*"
+      "shared/*": [
+        "../shared/*"
       ]
     },
   }

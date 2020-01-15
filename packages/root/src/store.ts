@@ -1,17 +1,17 @@
 import Vue from 'vue'
 import Vuex, { Module } from 'vuex'
 import { http } from '@/api/http'
-import appData from '../dev-subsysmt-map.json'
+// @ts-ignore
+// import appData from './dev-subsysmt-map'
 import Url from 'url-parse'
 
 Vue.use(Vuex)
-type App = NodeJS.EnvVars & {
+type Manifest ={
   scripts: string[]
   styles: string[]
 }
-
 type State = {
-  appList: App[]
+  appList: AppData[]
 }
 const _module: Module<State, any> = {
   state: {
@@ -24,28 +24,30 @@ const _module: Module<State, any> = {
   mutations: {
     SET_APP_LIST (state, data) {
       state.appList = data
+    },
+    SET_APP_MANIFEST (state, { id, data }) {
+      const app = state.appList.find(i => i.ID === id)
+      Vue.set(app!, 'manifest', data)
     }
   },
   actions: {
-    async getManifest ({ commit, state }, urls:string[]) {
-      const data = await Promise.all(urls.map(async i => {
-        const url = new Url('/manifest.json', i).href
-        let { env, ...data } = await http({
-          url
-        })
-        return {
-          ...env,
-          ...data
-        }
-      }))
-      commit('SET_APP_LIST', data)
+    async getManifest ({ commit, state }, app: AppData) {
+      console.log(app)
+      const url = new Url('/manifest.json', app.PUBLIC_PATH).href
+      const manifest = await http<Manifest>({
+        url
+      })
+      commit('SET_APP_MANIFEST', {
+        id: app.ID,
+        data: manifest
+      })
     },
     getAppList ({ commit, dispatch }) {
       let data
       if (process.env.IS_DEV) {
-        data = appData
+        data = process.env.DEV_SUB_SYS_CONFIG_MAP
       }
-      return dispatch('getManifest', data)
+      commit('SET_APP_LIST', data)
     }
   }
 }

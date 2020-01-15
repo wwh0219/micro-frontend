@@ -1,4 +1,4 @@
-import { genHttp } from 'common/utils/gen-http'
+import { genHttp } from 'shared/utils/gen-http'
 
 export const http = genHttp({
   baseURL: process.env.BASE_URL

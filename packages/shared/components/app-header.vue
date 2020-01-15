@@ -4,7 +4,7 @@
       <img
         @click="$emit('icon-click',$event)"
         class="app-header__icon"
-        :src="require('common/assets/logo.png')"
+        :src="require('shared/assets/logo.png')"
         alt
       />
       <slot name="left"></slot>
@@ -26,7 +26,7 @@
 </template>
 <script>
 import { createNamespacedHelpers } from 'vuex'
-const { mapGetters } = createNamespacedHelpers('common')
+const { mapGetters } = createNamespacedHelpers('shared')
 export default {
   name: 'app-header',
   computed: {

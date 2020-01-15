@@ -18,11 +18,11 @@
   </div>
 </template>
 <script>
-import Header from 'common/components/app-header'
+import Header from 'shared/components/app-header'
+import { uninstallSubApp } from 'shared'
 import Container from './views/container'
-import appList from '../dev-subsysmt-map.json'
-import { loadScripts, loadStyles } from 'common/utils/load-resource'
-import { mapGetters } from 'vuex'
+import { loadScripts, loadStyles } from 'shared/utils/load-resource'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -56,17 +56,16 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['getManifest']),
     async loadResource () {
       this.pending = true
+      await this.getManifest(this.currentApp)
       await Promise.all([
-        loadScripts(this.currentApp.scripts || []),
-        loadStyles(this.currentApp.styles || [])
+        loadScripts(this.currentApp.manifest.scripts || []),
+        loadStyles(this.currentApp.manifest.styles || [])
       ])
       const vm = await window.SUB_SYS_FACTORY_MAP[this.currentApp.ID]()
-      if (this.vm) {
-        this.vm.$el.remove()
-        this.vm.$destroy()
-      }
+      this.vm && uninstallSubApp(this.vm)
       this.vm = vm
       this.pending = false
     }

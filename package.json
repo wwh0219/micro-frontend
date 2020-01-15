@@ -9,7 +9,7 @@
     "commit": "git-cz",
     "build:common-vendor:development": "cross-env ENV=development webpack --config ./webpack.dll.config.js",
     "build:common-vendor:production": "cross-env ENV=production webpack --config ./webpack.dll.config.js",
-    "start": "node ./vendor-server.js"
+    "serve:dll": "node ./vendor-server.js"
   },
   "dependencies": {
     "axios": "^0.19.0",

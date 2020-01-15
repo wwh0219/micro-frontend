@@ -6,7 +6,7 @@ const fs = require('fs-extra')
 const ENV = process.env.ENV
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const config = require('./config.js')
-fs.emptyDirSync(config.common.dllOutPutDir)// 清空输出目录
+fs.emptyDirSync(config.dll.dllOutPutDir)// 清空输出目录
 
 module.exports = {
   entry: {
@@ -16,7 +16,7 @@ module.exports = {
 
   output: {
     filename: '[name].[hash].dll.js',
-    path: config.common.dllOutPutDir,
+    path: config.dll.dllOutPutDir,
     library: '[name]',
     publicPath: config[ENV].dllPublicPath
   },
@@ -24,7 +24,7 @@ module.exports = {
   plugins: [
     new ProgressBarPlugin(),
     new webpack.DllPlugin({
-      path: path.join(config.common.dllOutPutDir, `[name]-manifest.json`),
+      path: path.join(config.dll.dllOutPutDir, `[name]-manifest.json`),
       // This must match the output.library option above
       name: '[name]',
       context: __dirname

@@ -6,9 +6,10 @@ exports.development = {
   }
 }
 
-exports.common = {
+exports.dll = {
   dllAssetDir: `libs/dll/${process.env.ENV}/`,
   get dllOutPutDir () {
-    return path.resolve(__dirname, `./packages/common/public/${this.dllAssetDir}`)
-  }
+    return path.resolve(__dirname, `./packages/shared/public/${this.dllAssetDir}`)
+  },
+  dllJSONPath: path.resolve(__dirname, `./packages/shared/public/libs/dll/${process.env.ENV}/vendor-manifest.json`)
 }

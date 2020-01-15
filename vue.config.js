@@ -12,6 +12,7 @@ const glob = require('glob')
 const DefinePlugin = webpack.DefinePlugin
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 const _config = require('./config')
+let subsData = require('./packages/root/dev-subsysmt-map')
 const formatEnv = function (obj) {
   const _temp = {}
   Object.keys(obj).forEach((key) => {
@@ -29,41 +30,43 @@ module.exports = (externalConfig = {}) => {
             ...formatEnv(envVars),
             NODE_ENV: JSON.stringify(ENV),
             IS_DEV: isDev,
-            IS_PRODUCTION: isProduction
+            IS_PRODUCTION: isProduction,
+            DEV_SUB_SYS_CONFIG_MAP: JSON.stringify(subsData)
           }
         }])
         .end()
-
-      // config.plugin('dll')
-      //   .use(webpack.DllReferencePlugin, [
-      //     {
-      //       context: __dirname,
-      //       manifest: require(path.resolve(__dirname, `./packages/common/public/libs/dll/${ENV}/vendor-manifest.json`))
-      //     }
-      //   ])
-      // console.log(glob.sync(path.resolve(_config.common.dllOutPutDir, 'vendor.**.css'))[0])
-      // config.plugin('add-asset-html-webpack-plugin-js')
-      //   .use(AddAssetHtmlPlugin, [
-      //     {
-      //       filepath: path.resolve(_config.common.dllOutPutDir, 'vendor.**.dll.js'),
-      //       publicPath: _config[ENV].dllPublicPath
-      //     }
-      //   ])
-      // config.plugin('add-asset-html-webpack-plugin-css')
-      //   .use(AddAssetHtmlPlugin, [
-      //     {
-      //       filepath: path.resolve(_config.common.dllOutPutDir, 'vendor.**.css'),
-      //       publicPath: _config[ENV].dllPublicPath,
-      //       typeOfAsset: 'css'
-      //     }
-      //   ])
+      if (isDev) {
+        config.plugin('dll')
+          .use(webpack.DllReferencePlugin, [
+            {
+              context: __dirname,
+              manifest: require(_config.dll.dllJSONPath)
+            }
+          ])
+        console.log(glob.sync(path.resolve(_config.dll.dllOutPutDir, 'vendor.**.css'))[0])
+        config.plugin('add-asset-html-webpack-plugin-js')
+          .use(AddAssetHtmlPlugin, [
+            {
+              filepath: path.resolve(_config.dll.dllOutPutDir, 'vendor.**.dll.js'),
+              publicPath: _config[ENV].dllPublicPath
+            }
+          ])
+        config.plugin('add-asset-html-webpack-plugin-css')
+          .use(AddAssetHtmlPlugin, [
+            {
+              filepath: path.resolve(_config.dll.dllOutPutDir, 'vendor.**.css'),
+              publicPath: _config[ENV].dllPublicPath,
+              typeOfAsset: 'css'
+            }
+          ])
+      }
       chainWebpack && chainWebpack(config)
     },
     configureWebpack: {
       resolve: {
         symlinks: false,
         alias: {
-          common: path.join(__dirname, './packages/common')
+          shared: path.join(__dirname, './packages/shared')
         }
       }
     },
@@ -81,8 +84,7 @@ module.exports = (externalConfig = {}) => {
           res.json({
             scripts: [
               new url.URL('/app.js', envVars.PUBLIC_PATH)
-            ],
-            env: envVars
+            ]
           })
         })
       }
