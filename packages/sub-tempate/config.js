@@ -7,3 +7,7 @@ exports.development = {
   ...base,
   PUBLIC_PATH: `http://localhost:${base.PORT}`
 }
+exports.production = {
+  ...base,
+  PUBLIC_PATH: `http://localhost:${base.PORT}`
+}

@@ -6,8 +6,8 @@ const fs = require('fs-extra')
 const ENV = process.env.ENV
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const config = require('./config.js')
-fs.emptyDirSync(config.dll.dllOutPutDir)// 清空输出目录
-
+console.log(config.dll.outPutDir)
+fs.emptyDirSync(config.dll.outPutDir)// 清空输出目录
 module.exports = {
   entry: {
     vendor
@@ -16,15 +16,15 @@ module.exports = {
 
   output: {
     filename: '[name].[hash].dll.js',
-    path: config.dll.dllOutPutDir,
+    path: config.dll.outPutDir,
     library: '[name]',
-    publicPath: config[ENV].dllPublicPath
+    publicPath: config.dll.publicPath
   },
 
   plugins: [
     new ProgressBarPlugin(),
     new webpack.DllPlugin({
-      path: path.join(config.dll.dllOutPutDir, `[name]-manifest.json`),
+      path: path.join(config.dll.outPutDir, `[name]-manifest.json`),
       // This must match the output.library option above
       name: '[name]',
       context: __dirname
@@ -37,8 +37,8 @@ module.exports = {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // all options are optional
-      filename: '[name].[hash].css',
-      chunkFilename: '[id].[hash].css',
+      filename: '[name].[hash].dll.css',
+      chunkFilename: '[id].[hash].dll.css',
       ignoreOrder: false // Enable to remove warnings about conflicting order
     })
   ],

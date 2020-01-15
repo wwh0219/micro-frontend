@@ -35,31 +35,30 @@ module.exports = (externalConfig = {}) => {
           }
         }])
         .end()
-      if (isDev) {
-        config.plugin('dll')
-          .use(webpack.DllReferencePlugin, [
-            {
-              context: __dirname,
-              manifest: require(_config.dll.dllJSONPath)
-            }
-          ])
-        console.log(glob.sync(path.resolve(_config.dll.dllOutPutDir, 'vendor.**.css'))[0])
-        config.plugin('add-asset-html-webpack-plugin-js')
-          .use(AddAssetHtmlPlugin, [
-            {
-              filepath: path.resolve(_config.dll.dllOutPutDir, 'vendor.**.dll.js'),
-              publicPath: _config[ENV].dllPublicPath
-            }
-          ])
-        config.plugin('add-asset-html-webpack-plugin-css')
-          .use(AddAssetHtmlPlugin, [
-            {
-              filepath: path.resolve(_config.dll.dllOutPutDir, 'vendor.**.css'),
-              publicPath: _config[ENV].dllPublicPath,
-              typeOfAsset: 'css'
-            }
-          ])
-      }
+      // if (isDev) {
+      config.plugin('dll')
+        .use(webpack.DllReferencePlugin, [
+          {
+            context: __dirname,
+            manifest: require(_config.dll.dllJSONPath)
+          }
+        ])
+      config.plugin('add-asset-html-webpack-plugin-js')
+        .use(AddAssetHtmlPlugin, [
+          {
+            filepath: path.resolve(_config.dll.outPutDir, 'vendor.**.dll.js'),
+            publicPath: _config.dll.publicPath
+          }
+        ])
+      config.plugin('add-asset-html-webpack-plugin-css')
+        .use(AddAssetHtmlPlugin, [
+          {
+            filepath: path.resolve(_config.dll.outPutDir, 'vendor.**.css'),
+            publicPath: _config.dll.publicPath,
+            typeOfAsset: 'css'
+          }
+        ])
+      // }
       chainWebpack && chainWebpack(config)
     },
     configureWebpack: {

@@ -8,3 +8,8 @@ exports.development = {
   BASE_API: '/',
   PUBLIC_PATH: `http://localhost:${base.PORT}`
 }
+exports.production = {
+  ...base,
+  BASE_API: '/',
+  PUBLIC_PATH: `http://localhost:${base.PORT}`
+}
