@@ -1,9 +1,10 @@
 import Vue from 'vue'
-import { Store } from 'vuex'
+import { Store, MutationPayload } from 'vuex'
 import { sharedModule } from './store'
 import VueRouter from 'vue-router'
 import { ComponentOptions } from 'vue/types/umd'
 let currentStore: Store<any>
+const syncMutation = 'shared/SYNC_STATE'
 export type RegisterOptions = {
   el?: Element | string
   appid: number
@@ -44,22 +45,32 @@ export const registerStoreModule = (store: Store<any>) => {
 }
 
 let ubsubscribe:Function
+
+const isSyncableMutation = (mutation: MutationPayload) => {
+  return /^shared\//g.test(mutation.type) && mutation.type !== syncMutation
+}
 /**
  * 子系统同步父级shared模块下的状态
  */
-
 export const syncStoreState = (store: Store<any>) => {
   currentStore = store
-  window.ROOT_VM!.$store.watch(state => state.shared, (...args) => {
-    currentStore.commit('shared/SYNC_STATE', window.ROOT_VM!.$store.state.shared)
-  }, {
-    immediate: true
-  })
-  ubsubscribe = currentStore.subscribe((mutation, state) => {
-    if (/^shared\//g.test(mutation.type)) {
-      window.ROOT_VM!.$store.commit('shared/SYNC_STATE', state.shared)
+  const rootStore = window.ROOT_VM!.$store
+  currentStore.commit(syncMutation, rootStore.state.shared)
+  const ubsubscribeRoot = rootStore.subscribe((mutation, state) => {
+    if (isSyncableMutation(mutation)) {
+      currentStore.commit(syncMutation, state.shared)
     }
   })
+  const ubsubscribeSub = currentStore.subscribe((mutation, state) => {
+    if (isSyncableMutation(mutation)) {
+      rootStore.commit(syncMutation, state.shared)
+    }
+  })
+  ubsubscribe = () => {
+    ubsubscribeRoot()
+    ubsubscribeSub()
+  }
+  return store
 }
 
 export const uninstallSubApp = (vm:Vue) => {

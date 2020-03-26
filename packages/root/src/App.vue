@@ -1,26 +1,29 @@
 <template>
-  <div id="app" v-loading="pending">
-    <Header>
-      <el-dropdown
-        size="mini"
-        slot="right"
-        :value="currentAppAlias"
-        @command="$router.push({ name: 'root', params: { appAlias: $event } })">
-        <div style="color:#fff;margin-right:10px">
-          {{currentAppAlias || '请选择'}}
-        </div>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item v-for="i in appList" :key="i.id" :command="i.ALIAS">{{ i.ALIAS }}</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </Header>
+  <app-view id="app" v-loading="pending">
+    <template v-slot:header>
+      <app-header>
+        <template v-slot:right>
+          <el-dropdown
+            size="mini"
+            :value="currentAppAlias"
+            @command="$router.push({ name: 'root', params: { appAlias: $event } })"
+          >
+            <div style="color:#fff;margin-right:10px">{{currentAppAlias || '请选择'}}</div>
+            <template v-slot:dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item v-for="i in appList" :key="i.id" :command="i.ALIAS">{{ i.ALIAS }}</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </template>
+      </app-header>
+    </template>
     <Container v-if="vm" :vm="vm"></Container>
-  </div>
+  </app-view>
 </template>
 <script>
-import Header from 'shared/components/app-header'
 import { uninstallSubApp } from 'shared'
-import Container from './views/container'
+import Container from './container'
 import { loadScripts, loadStyles } from 'shared/utils/load-resource'
 import { mapGetters, mapActions } from 'vuex'
 export default {
@@ -32,7 +35,6 @@ export default {
     }
   },
   components: {
-    Header,
     Container
   },
   async created () {

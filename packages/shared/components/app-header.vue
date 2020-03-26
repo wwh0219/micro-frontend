@@ -12,15 +12,6 @@
     <slot></slot>
     <div class="app-header__right">
       <slot name="right"></slot>
-      <!-- <el-dropdown v-if="user">
-        <span class="el-dropdown-link">
-          {{user.id}}
-          <i class="el-icon-arrow-down el-icon--right"></i>
-        </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>退出登录</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown> -->
     </div>
   </div>
 </template>

@@ -1,6 +1,18 @@
 @import "~normalize.css";
 @import "./classes";
 @import "./components/app-header.scss";
-body,html,#app{
+
+body,
+html,
+#app {
   height: 100%;
+}
+
+.app {
+  height: 100%;
+  @include flex-col;
+  .app-container{
+    flex:1;
+    overflow: hidden;
+  }
 }

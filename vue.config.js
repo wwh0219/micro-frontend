@@ -8,10 +8,7 @@ const isDev = ENV === 'development'
 const envDir = path.join(process.cwd(), `./config.js`)
 const envVars = require(envDir)[ENV]
 const webpack = require('webpack')
-const glob = require('glob')
 const DefinePlugin = webpack.DefinePlugin
-const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
-const _config = require('./config')
 let subsData = require('./packages/root/dev-subsysmt-map')
 const formatEnv = function (obj) {
   const _temp = {}
@@ -35,30 +32,6 @@ module.exports = (externalConfig = {}) => {
           }
         }])
         .end()
-      // if (isDev) {
-      config.plugin('dll')
-        .use(webpack.DllReferencePlugin, [
-          {
-            context: __dirname,
-            manifest: require(_config.dll.dllJSONPath)
-          }
-        ])
-      config.plugin('add-asset-html-webpack-plugin-js')
-        .use(AddAssetHtmlPlugin, [
-          {
-            filepath: path.resolve(_config.dll.outPutDir, 'vendor.**.dll.js'),
-            publicPath: _config.dll.publicPath
-          }
-        ])
-      config.plugin('add-asset-html-webpack-plugin-css')
-        .use(AddAssetHtmlPlugin, [
-          {
-            filepath: path.resolve(_config.dll.outPutDir, 'vendor.**.css'),
-            publicPath: _config.dll.publicPath,
-            typeOfAsset: 'css'
-          }
-        ])
-      // }
       chainWebpack && chainWebpack(config)
     },
     configureWebpack: {
@@ -67,6 +40,9 @@ module.exports = (externalConfig = {}) => {
         alias: {
           shared: path.join(__dirname, './packages/shared')
         }
+      },
+      output: {
+        jsonpFunction: `webpack_jsonp_${envDir.ID}`
       }
     },
     devServer: {
