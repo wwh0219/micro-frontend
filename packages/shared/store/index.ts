@@ -36,8 +36,13 @@ export const sharedModule: Module<State, any> = {
     init ({ getters, commit }) {
       if (!getters.user) {
         const user = prompt('请输入用户名')
-        commit('SET_USER', {
-          id: user
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            commit('SET_USER', {
+              id: user
+            })
+            resolve()
+          }, 2000)
         })
       }
     }

@@ -12,8 +12,7 @@ import { actions } from 'shared/store'
 Vue.use(ElementUi)
 Vue.component(View.name, View)
 Vue.component(Header.name, Header)
-registerStoreModule(store)
-store.dispatch(actions.init).then(() => {
+registerStoreModule(store).then(() => {
   const vm = new Vue({
     router,
     store,

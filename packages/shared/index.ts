@@ -56,7 +56,7 @@ export const registerStoreModule = async (store: Store<any>) => {
   if (root && store !== root.$store) {
     store.commit(sharedMutation.sync, root.$store.state.shared)
   }
-  store.dispatch(actions.init)
+  await store.dispatch(actions.init)
 }
 
 const isSyncableMutation = (mutation: MutationPayload) => {
