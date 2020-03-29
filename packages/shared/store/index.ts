@@ -1,19 +1,25 @@
 import { Store, Module } from 'vuex'
 type State = {
-  user?: {
+  user: null|{
     id: number
   },
-  data:any
+  data: any
 }
-
+export const mutations = {
+  sync: 'shared/SYNC_STATE'
+}
+export const actions = {
+  init: 'shared/init'
+}
 export const sharedModule: Module<State, any> = {
   namespaced: true,
   state: {
-    user: undefined,
+    user: null,
     data: {}
   },
   getters: {
-    user: state => state.user
+    user: state => state.user,
+    isInternal: () => !!window.ROOT_VM
   },
   mutations: {
     SET_USER (state, data) {
@@ -23,9 +29,17 @@ export const sharedModule: Module<State, any> = {
       Object.keys(state).forEach((key) => {
         state[key as keyof State] = data[key]
       })
-    },
-    SET_DATA (state, data) {
-      state.data = data
+    }
+  },
+  actions: {
+    // todo 模拟登录，有需要可自行修改
+    init ({ getters, commit }) {
+      if (!getters.user) {
+        const user = prompt('请输入用户名')
+        commit('SET_USER', {
+          id: user
+        })
+      }
     }
   }
 }

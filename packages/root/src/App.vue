@@ -29,7 +29,6 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   data () {
     return {
-      app: 1,
       pending: false,
       vm: null
     }
@@ -66,7 +65,7 @@ export default {
         loadScripts(this.currentApp.manifest.scripts || []),
         loadStyles(this.currentApp.manifest.styles || [])
       ])
-      const vm = await window.SUB_SYS_FACTORY_MAP[this.currentApp.ID]()
+      const vm = this.$store.getters.getAppFactory(this.currentApp.ID)()
       this.vm && uninstallSubApp(this.vm)
       this.vm = vm
       this.pending = false

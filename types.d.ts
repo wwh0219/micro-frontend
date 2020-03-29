@@ -1,22 +1,16 @@
 import Vue from 'Vue'
-import { Factory } from 'shared/index'
 
 declare global {
 	interface Window {
 		ROOT_VM?: Vue
-		IS_INTERNAL?: boolean
-		SUB_SYS_FACTORY_MAP: {
-			[key: string]: () => Vue
-		}
-
 	}
 	type AppData = {
 		ID: number
 		ALIAS: string
 		PUBLIC_PATH: string
 		PORT: number
-		manifest:{
-			scripts:string[]
+		manifest: {
+			scripts: string[]
 			styles: string[]
 		}
 	}
@@ -38,7 +32,7 @@ declare global {
 				ALIAS: string
 				PUBLIC_PATH: string
 				PORT: number
-				[key:string]:string|number
+				[key: string]: string | number
 			}
 		}
 		export interface Process {

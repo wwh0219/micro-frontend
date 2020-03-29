@@ -1,6 +1,6 @@
 const base = {
   ID: 1,
-  ALIAS: 'sub',
+  ALIAS: 'sub1',
   PORT: 7771
 }
 exports.development = {

@@ -4,7 +4,7 @@ import { http } from '@/api/http'
 // @ts-ignore
 // import appData from './dev-subsysmt-map'
 import Url from 'url-parse'
-
+import { Factory } from 'shared/index'
 Vue.use(Vuex)
 type Manifest ={
   scripts: string[]
@@ -12,14 +12,21 @@ type Manifest ={
 }
 type State = {
   appList: AppData[]
+  appFactories:{
+    [key:string]:Factory
+  }
 }
 const _module: Module<State, any> = {
   state: {
-    appList: []
+    appList: [],
+    appFactories: {}
   },
   getters: {
     appList: state => state.appList,
-    getAppData: state => (alias: string) => state.appList.find(app => app.ALIAS === alias)
+    getAppData: state => (alias: string) => state.appList.find(app => app.ALIAS === alias),
+    getAppFactory: state => (id:string) => {
+      return state.appFactories[id]
+    }
   },
   mutations: {
     SET_APP_LIST (state, data) {
@@ -28,11 +35,13 @@ const _module: Module<State, any> = {
     SET_APP_MANIFEST (state, { id, data }) {
       const app = state.appList.find(i => i.ID === id)
       Vue.set(app!, 'manifest', data)
+    },
+    SET_FACTORY (state, { id, factory }) {
+      Vue.set(state.appFactories, id, factory)
     }
   },
   actions: {
     async getManifest ({ commit, state }, app: AppData) {
-      console.log(app)
       const url = new Url('/manifest.json', app.PUBLIC_PATH).href
       const manifest = await http<Manifest>({
         url

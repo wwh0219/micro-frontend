@@ -12,20 +12,17 @@ export default {
   name: 'app',
   data () {
     return {
-      isInternal: window.IS_INTERNAL
     }
   },
   components: {
     Header
   },
   computed: {
-    ...mapGetters(['user'])
+    ...mapGetters(['user', 'isInternal'])
   },
   methods: {
-    ...mapMutations(['SET_DATA'])
   },
   mounted () {
-    this.SET_DATA(['a', 'b', 'c'])
   }
 }
 </script>
