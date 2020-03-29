@@ -5,7 +5,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "lint": "lerna run lint --stream",
+    "lint": "eslint \"**/*.{js,vue,ts,tsx}\"  --fix && lerna run lint --stream",
     "commit": "git-cz",
     "build:common-vendor:development": "cross-env ENV=development webpack --config ./webpack.dll.config.js",
     "build:common-vendor:production": "cross-env ENV=production webpack --config ./webpack.dll.config.js",
@@ -43,6 +43,7 @@
     "glob": "^7.1.6",
     "husky": "^3.0.9",
     "lerna": "^3.18.1",
+    "lint-staged": "^10.0.9",
     "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.12.0",
     "progress-bar-webpack-plugin": "^1.12.1",
@@ -64,8 +65,15 @@
   },
   "husky": {
     "hooks": {
+      "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "eslint \"**/*.{js,vue,ts,tsx}\"  --fix",
+      "git add ."
+    ]
   },
   "private": true
 }
