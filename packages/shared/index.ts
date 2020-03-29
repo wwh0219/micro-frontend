@@ -29,7 +29,7 @@ export const registerSubSystem = async (factory: Factory, options: RegisterOptio
     ...options
   }
   const store = factory.createStore()
-  registerStoreModule(store)
+  await registerStoreModule(store)
   const createApp = () => {
     const vm = factory.createAPP({
       router: factory.createRouter(),
@@ -68,7 +68,6 @@ const isSyncableMutation = (mutation: MutationPayload) => {
 export const syncStoreState = (store: Store<any>) => {
   subStore = store
   const rootStore = root!.$store
-  subStore.commit(sharedMutation.sync, rootStore.state.shared)
   const ubsubscribeRoot = rootStore.subscribe((mutation, state) => {
     if (isSyncableMutation(mutation)) {
       subStore.commit(sharedMutation.sync, state.shared)
